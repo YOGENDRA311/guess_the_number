@@ -1,4 +1,4 @@
-/**
+ /**
  * Guess The Number Game
  * TODO: Get user value from input and save it to variable numberGuess
  * TODO: Generate a random number 1 to 100 and save it to variable correctNumber
@@ -12,13 +12,15 @@
  */
 
 // Variable to store the list of guesses 
+let guesses=[];
 
 // Variable for store the correct random number 
-
-
+let correctNumber = getRandomNumber();
+// console.log(correctNumber);
 window.onload = function() {
-    document.getElementById("number-submit").addEventListener("click", playGame);
-    document.getElementById("restart-game").addEventListener("click", initGame)
+  document.getElementById("number-submit").addEventListener("click", playGame);
+  document.getElementById("restart-game").addEventListener("click", initGame);
+  
 }
 
 /**
@@ -26,6 +28,11 @@ window.onload = function() {
  */
 function playGame(){
   // *CODE GOES BELOW HERE *
+  let guessnumber = document.getElementById('number-guess').value;
+  DisplayResult(guessnumber);
+  saveGuessHistory(guessnumber);
+  displayHistory();
+
 }
 
 /**
@@ -33,7 +40,15 @@ function playGame(){
  * HINT: Use if, else if, else statement 
  */
 // *CODE GOES BELOW HERE *
-
+function DisplayResult(guessnumber){
+  if(guessnumber > correctNumber){
+    showNumberAbove();
+  }else if(guessnumber < correctNumber){
+    showNumberBelow();
+  }else{
+    showYouWon();
+  }
+}
 
 
 /**
@@ -42,6 +57,12 @@ function playGame(){
  */
 function initGame(){
   // *CODE GOES BELOW HERE *
+  correctNumber = getRandomNumber();
+  document.getElementById("result").innerHTML = "";
+  document.getElementById('number-guess').value = "";
+  guesses=[];
+  displayHistory();
+
 }
 
 /**
@@ -57,6 +78,9 @@ function resetResultContent(){
  */
 function getRandomNumber(){
   // *CODE GOES BELOW HERE *
+  let randomno = Math.random();
+  let randomnumber = Math.floor(randomno * 100);
+  return randomnumber;
 }
 
 /**
@@ -66,6 +90,8 @@ function getRandomNumber(){
  */
 function saveGuessHistory(guess) {
   // *CODE GOES BELOW HERE *
+  guesses.push(guess);
+  // console.log(guesses);
 }
 
 /**
@@ -77,9 +103,14 @@ function saveGuessHistory(guess) {
  * HINT: use while loop and string concatentation to create a list of guesses
  */
 function displayHistory() {
-  let index; // TODO
+  let index=0; // TODO
   let list = "<ul class='list-group'>";
   // *CODE GOES BELOW HERE *
+  while(index<guesses.length){
+    list+="<li class='list-group-item'>"+
+    "you guessed " + guesses[index] + "</li>";
+    index+=1;
+  }
   list += '</ul>'
   document.getElementById("history").innerHTML = list;
 }
@@ -112,7 +143,7 @@ function showYouWon(){
    * HINT: Use the 'won' and text parameters 
    */
   // *CODE GOES BELOW HERE *
-
+let dialog  = getDialog('won',text)
   document.getElementById("result").innerHTML = dialog;
 }
 
@@ -124,7 +155,7 @@ function showNumberAbove(){
    * HINT: Use the 'warning' and text parameters 
    */
   // *CODE GOES BELOW HERE *
-
+let dialog = getDialog('warning',text);
   document.getElementById("result").innerHTML = dialog;
 }
 
@@ -136,6 +167,6 @@ function showNumberBelow(){
    * HINT: Use the 'warning' and text parameters 
    */
   // *CODE GOES BELOW HERE *
-
+let dialog = getDialog('warning',text);
   document.getElementById("result").innerHTML = dialog;
 }
