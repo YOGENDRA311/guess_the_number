@@ -1,5 +1,5 @@
  /**
- * Guess The Number Game
+ * Guess The Number Game by yogendra singh
  * TODO: Get user value from input and save it to variable numberGuess
  * TODO: Generate a random number 1 to 100 and save it to variable correctNumber
  * TODO: Console whether the guess is too high, too low, or is correct inside playGame function
